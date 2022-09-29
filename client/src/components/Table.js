@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-const Table = ({ attributes, isLoading, handleSort, setSearch }) => {
+const Table = ({ isLoading, handleSort, filteredData }) => {
 
   if (isLoading) {
     return <h2>Loading...</h2>
   }
+
+  // App.js => [filteredData, setFilteredData] = UseState([])
+  // App.js props => filteredData => Table.js, Search.js
+  // Search.js setFilteredData(filtered)
+  // Search.js onChange => handleChange ? e.target.value 
+  // Table.js => filteredData !== [] ? filteredData.map(...) : attributes.map(...)
 
   return (
     <div>
@@ -18,14 +24,17 @@ const Table = ({ attributes, isLoading, handleSort, setSearch }) => {
           </tr>
         </thead>
         <tbody>
-          {attributes && attributes.map((item) => (
-            <tr key={item.id}>
-              <td>{item.date}</td>
-              <td>{item.name}</td>
-              <td>{item.quantity}</td>
-              <td>{item.distance}</td>
-            </tr>
-          ))}
+          {filteredData && filteredData.map((item) => {
+            return (
+              <tr key={item.id}>
+                <td>{item.date}</td>
+                <td>{item.name}</td>
+                <td>{item.quantity}</td>
+                <td>{item.distance}</td>
+              </tr>
+            )
+          })
+          }
         </tbody>
       </table>
     </div>

@@ -10,7 +10,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [currPage, setCurrPage] = useState(1);
   const [attributesPerPage, setAttributesPerPage] = useState(5);
-  const [search, setSearch] = useState([])
+  const [search, setSearch] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
+  const [filterValue, setFilterValue] = useState('');
 
   useEffect(() => {
     const getAttributes = async () => {
@@ -18,7 +20,7 @@ function App() {
       const getAtts = await fetch(`${process.env.REACT_APP_API_URL}`)
       const response = await getAtts.json()
       setAttributes(response)
-      // setSearch(response)
+      setFilteredData(response)
       setIsLoading(false)
     }
 
@@ -27,27 +29,27 @@ function App() {
 
   const handleSort = (col) => {
     // console.log(col)
-    const copyArr = [...attributes]
+    const copyArr = [...filteredData]
     const sortedArr = copyArr.sort((a, b) => (a[col] > b[col] ? 1 : -1));
-    setAttributes(sortedArr)
+    setFilteredData(sortedArr)
   }
 
   console.log('ATTRIBUTES:', Object.keys(attributes))
 
-  const lastIndex = currPage * attributesPerPage;
-  const firstIndex = lastIndex - attributesPerPage;
-  const currAttributes = attributes.slice(firstIndex, lastIndex);
+  const lastIndex = currPage * attributesPerPage; // 1 * 5 = 5
+  const firstIndex = lastIndex - attributesPerPage; // 5 - 5 = 0
+  const currAttributes = filteredData.slice(firstIndex, lastIndex); // 0, 5
 
   const paginate = pageNumber => setCurrPage(pageNumber)
 
 
   return (
     <div>
-      <Search attributes={attributes} setSearch={setSearch} />
-      <Table attributes={currAttributes} isLoading={isLoading} handleSort={handleSort} />
+      <Search attributes={attributes} setFilteredData={setFilteredData} setFilterValue={setFilterValue} filterValue={filterValue} />
+      <Table isLoading={isLoading} handleSort={handleSort} filteredData={currAttributes} />
       <Pagination
         attributesPerPage={attributesPerPage}
-        totalAttributes={attributes.length}
+        totalAttributes={filteredData.length}
         paginate={paginate}
       />
     </div>
