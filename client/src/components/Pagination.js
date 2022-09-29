@@ -1,8 +1,25 @@
 import React from 'react'
 
-const Pagination = () => {
+const Pagination = ({ totalAttributes, attributesPerPage, paginate }) => {
+
+  const pageQty = [];
+
+  for (let i = 1; i <= Math.ceil(totalAttributes / attributesPerPage); i++) {
+    pageQty.push(i)
+  }
+
   return (
-    <div>Pagination</div>
+    <nav>
+      <ul className='pagination'>
+        {pageQty.map((page) => (
+          <li key={page} className='page'>
+            <a onClick={() => paginate(page)} href='!#' className='page-link'>
+              {page}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   )
 }
 

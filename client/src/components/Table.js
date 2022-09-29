@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const Table = ({ attributes, isLoading }) => {
-
-  // const [attributes, setAttributes] = useState([]);
-  // const [loading, setLoading] = useState(false)
-
-  // useEffect(() => {
-  //   fetch(`${process.env.REACT_APP_API_URL}`)
-  //     .then(response => response.json())
-  //     .then(data => setAttributes(data))
-  // }, [])
+const Table = ({ attributes, isLoading, handleSort, setSearch }) => {
 
   if (isLoading) {
     return <h2>Loading...</h2>
@@ -20,10 +11,10 @@ const Table = ({ attributes, isLoading }) => {
       <table>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Distance</th>
+            <th>Дата</th>
+            <th onClick={() => { handleSort(`name`) }}>Наименование</th>
+            <th onClick={() => { handleSort(`quantity`) }}>Количество</th>
+            <th onClick={() => { handleSort(`distance`) }}>Расстояние</th>
           </tr>
         </thead>
         <tbody>
