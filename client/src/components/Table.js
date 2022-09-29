@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 const Table = ({ isLoading, handleSort, filteredData }) => {
 
   if (isLoading) {
-    return <h2>Loading...</h2>
+    return <img src='https://gladians.com/images/loading.gif' alt='' />
   }
 
   // App.js => [filteredData, setFilteredData] = UseState([])

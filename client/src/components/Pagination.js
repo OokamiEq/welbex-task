@@ -9,17 +9,17 @@ const Pagination = ({ totalAttributes, attributesPerPage, paginate }) => {
   }
 
   return (
-    <nav>
+    <div class="pagination">
       <ul className='pagination'>
         {pageQty.map((page) => (
-          <li key={page} className='page'>
-            <a onClick={() => paginate(page)} href='!#' className='page-link'>
+          <li key={page} className='page' onClick={() => paginate(page)}>
+            <span href='!#' className='page-link'>
               {page}
-            </a>
+            </span>
           </li>
         ))}
       </ul>
-    </nav>
+    </div>
   )
 }
 

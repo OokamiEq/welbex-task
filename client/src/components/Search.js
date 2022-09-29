@@ -59,7 +59,7 @@ const Search = ({ attributes, filterValue, setFilterValue, setFilteredData }) =>
 
 
   return (
-    <div>
+    <div className='wrapper'>
       <select onChange={(e) => handleSortBy(e)}>
         <option selected disabled>Сортировать</option>
         <option value={attributes.name}>Название</option>
